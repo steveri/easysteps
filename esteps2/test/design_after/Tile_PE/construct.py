@@ -18,8 +18,8 @@ from mflowgen.components import Graph, Step
 # sys.path.append(script_dir + '/../esteps2')
 
 # Find and import easysteps; should be in $MFLOWGEN_TOP/easysteps (really?)
-mpath = os.environ.get('MFLOWGEN_TOP')
-sys.path.append(mpath + '/easysteps/esteps2')
+epath = os.environ.get('EASYSTEPS_TOP')
+sys.path.append(epath + '/esteps2')
 
 
 
@@ -101,6 +101,7 @@ def construct():
   g.set_adk( adk_name )
   adk = g.get_adk_step()
 
+  # Unlike 'g.connect_by_name()', easysteps 'connect_mode()' can appear anywhere.
   # 'econnect' allows connections to be declared up here with the step definition.
   # Or: could implement 'AStep' to do the connections all-in-one like CStep etc.
   econnect( adk, 'synth'        )

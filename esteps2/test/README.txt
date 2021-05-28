@@ -1,6 +1,6 @@
-EASYSTEPS TEST
+ESTEPS2 TEST
 
-Build the same design construct.py files both with and without using easysteps enhancements, verify that the results in both cases are identical.
+Build the same design construct.py files both with and without using esteps2 enhancements, verify that the results in both cases are identical.
 
 To contrast the two styles (basic vs. easystesp), you can compare the design without easystep enhancements vs. the design rewritten with enhancements
 
@@ -51,7 +51,7 @@ export EASYSTEPS_TOP=$erig/mflowgen/easysteps
 ########################################################################
 # Build before-and-after test designs: BEFORE
 
-testdir=$erig/mflowgen/easysteps/easysteps/test
+testdir=$erig/mflowgen/easysteps/esteps2/test
 which mflowgen
 cd $testdir; mkdir build_before
 cd $testdir/build_before
@@ -61,7 +61,7 @@ mflowgen run --design $testdir/design_before/Tile_PE
 ########################################################################
 # Build before-and-after test designs: AFTER
 
-testdir=$erig/mflowgen/easysteps/easysteps/test
+testdir=$erig/mflowgen/easysteps/esteps2/test
 which mflowgen
 cd $testdir; mkdir build_after; cd build_after
 mflowgen run --design $testdir/design_after/Tile_PE
