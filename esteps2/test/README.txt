@@ -20,7 +20,7 @@ HOW TO TEST:
 erig=~/tmpdir/easysteps_test
 
 ls -ld ${erig}*
-mv ${erig} ${erig}.deleteme3
+mv ${erig} ${erig}.deleteme4
 
 
 mkdir -p $erig; cd $erig
