@@ -1,1 +1,1 @@
-../../scripts/fix-shorts.tcl
+echo foo

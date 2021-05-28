@@ -1,1 +1,1 @@
-../../power-scripts/globalnetconnect.tcl
+echo foo
