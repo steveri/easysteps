@@ -20,7 +20,7 @@ HOW TO TEST:
 erig=~/tmpdir/easysteps_test
 
 ls -ld ${erig}*
-mv ${erig} ${erig}.deleteme1
+mv ${erig} ${erig}.deleteme2
 
 
 mkdir -p $erig; cd $erig
@@ -61,8 +61,8 @@ mflowgen run --design $testdir/design_before/Tile_PE
 
 testdir=$erig/mflowgen/easysteps/easysteps/test
 which mflowgen
-cd $testdir; mkdir build_before; cd build_before
-mflowgen run --design $testdir/design_before/Tile_PE
+cd $testdir; mkdir build_after; cd build_after
+mflowgen run --design $testdir/design_after/Tile_PE
 
 ########################################################################
 # COMPARE before & after

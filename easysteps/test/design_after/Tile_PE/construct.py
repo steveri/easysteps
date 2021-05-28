@@ -19,7 +19,7 @@ from mflowgen.components import Graph, Step
 
 # Find and import easysteps; should be in $MFLOWGEN_TOP/easysteps (really?)
 mpath = os.environ.get('MFLOWGEN_TOP')
-sys.path.append(mpath + '/easysteps')
+sys.path.append(mpath + '/easysteps/easysteps')
 
 
 
