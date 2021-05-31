@@ -6,11 +6,13 @@
 # 
 
 
-erig=`pwd`/erig; cd $erig
+erig=`pwd`/erig
 
-# REBUILD= ; # Can unset REBUILD if want to reuse test rig setup
-REBUILD=1
-if [ "$REBUILD" ]; then
+REUSE=
+# REUSE=1 ; # Can unset REBUILD if want to reuse test rig setup
+if ! [ "$REUSE" ]; then
+    echo "+++ Building test rig '$erig'"; echo ""
+    mkdir $erig
 
     ########################################################################
     # INSTALL mflowgen and easysteps
@@ -67,6 +69,7 @@ echo "+++ Compare before and after designs (result should be NULL (identical))"
 
 DBG=
 log=$erig/results.log
+test -e $log && mv $log $log.$$
 
 echo '# Look for "only in build_before" files...'
 (cd $erig; for f1 in `find build_before -type f`; do
@@ -103,17 +106,20 @@ echo '# Compare remaining files straight across...'
           [ $DBG ] && echo STILL NOPE try adj2
 
           # Still no good, see if it's just lists in unsorted order maybe
+          diff <($fix_f1 | sort) <(sort $f2) > /dev/null || echo "--- diff $f1 $f2"
           diff <($fix_f1 | sort) <(sort $f2)
       fi
   fi
 done) |& tee -a $log
 echo ''
 
-echo DONE...
+echo DONE...; echo ''
 
 # Debug info will prevent clean final check
 [ "$DBG" ] && exit
 
+# FAIL if log file contains diffs
+echo "--- FINAL ANSWER"
 if grep . $log; then
     echo "FAIL (diffs found)"; exit 13
 else
