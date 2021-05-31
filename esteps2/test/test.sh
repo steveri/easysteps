@@ -1,73 +1,59 @@
 #!/bin/bash
 
-if ! [ "$1" ]; then
-    echo "Usage: $0 <test-dir>"
-    echo "Example: $0 /tmp/easysteps_test"
+# This script builds a test rig directory "./erig" and then does the following:
+# - installs mflowgen in dir ./erig/mflowgen
+# - installs easysteps in dir ./erig/mflowgen/easysteps
+# 
+
+
+erig=`pwd`/erig; cd $erig
+
+# REBUILD= ; # Can unset REBUILD if want to reuse test rig setup
+REBUILD=1
+if [ "$REBUILD" ]; then
+
+    ########################################################################
+    # INSTALL mflowgen and easysteps
+
+    echo "+++ Clone mflowgen"
+    cd $erig
+    git clone https://github.com/mflowgen/mflowgen.git
+    echo ""
+
+    echo "+++ Prepare a virtual environment"
+    cd $erig
+    python -m venv venv
+    source ./venv/bin/activate
+    echo ""
+
+    echo "+++ Install mflowgen"
+    cd $erig/mflowgen
+    which mflowgen  # should give error
+    pip install -e .
+    which mflowgen
+    pip list --format=columns | grep mflowgen
+    echo ""
+
+    echo "+++ Install easysteps"
+    cd $erig/mflowgen
+    git clone https://github.com/steveri/easysteps.git
+    export EASYSTEPS_TOP=$erig/mflowgen/easysteps
     echo ""
 fi
-erig=$(cd $1; echo $PWD)
-
-# testdir=$erig/mflowgen/easysteps/esteps2/test
-
-REBUILD=
-if [ "$REBUILD" ]; then
-echo "+++ Build a clean test rig '$erig'"
-
-if test -e $erig; then
-    echo "ERROR test dir '$erig' already exists"
-    exit 13
-fi
-# ls -ld ${erig}*
-# mv ${erig} ${erig}.deleteme4
-mkdir -p $erig; cd $erig; erig=$PWD
-echo ""
-
-
-echo "+++ Set up a virtual environment"
-cd $erig
-python -m venv venv
-source ./venv/bin/activate
-echo ""
-
-
-echo "+++ Clone mflowgen"
-cd $erig
-git clone https://github.com/mflowgen/mflowgen.git
-echo ""
-
-
-echo "+++ Install mflowgen"
-cd $erig/mflowgen
-# TOP=$PWD; export MFLOWGEN_TOP=$PWD; # let's tryit w/o this shall we
-which mflowgen  # should give error
-pip install -e .
-which mflowgen
-pip list --format=columns | grep mflowgen
-echo ""
-
-
-echo "+++ Install easysteps"
-cd $erig/mflowgen
-git clone https://github.com/steveri/easysteps.git
-export EASYSTEPS_TOP=$erig/mflowgen/easysteps
-echo ""
-
-########################################################################
-fi
-export EASYSTEPS_TOP=$erig/mflowgen/easysteps
-########################################################################
 
 
 ########################################################################
 # BUILD before & after designs
 
 echo "+++ Build before-and-after test designs: BEFORE"
+export EASYSTEPS_TOP=$erig/mflowgen/easysteps
 testdir=$erig/mflowgen/easysteps/esteps2/test
 mkdir $erig/build_before && cd $erig/build_before
 mflowgen run --design $testdir/design_before/Tile_PE
 echo ""
 
 echo "+++ Build before-and-after test designs: AFTER"
+export EASYSTEPS_TOP=$erig/mflowgen/easysteps
 testdir=$erig/mflowgen/easysteps/esteps2/test
 mkdir $erig/build_after && cd $erig/build_after
 mflowgen run --design $testdir/design_after/Tile_PE
