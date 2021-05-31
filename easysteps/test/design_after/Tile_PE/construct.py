@@ -12,16 +12,13 @@ from shutil import which
 
 from mflowgen.components import Graph, Step
 
-# # Find and import easysteps
-# # E.g. curdir='/foo/garnet_repo/mflowgen/Tile_PE' => easysteps='../easysteps'
-# script_dir=os.path.dirname(os.path.realpath(__file__))
-# sys.path.append(script_dir + '/../easysteps')
-
 # Find and import easysteps; should be in $MFLOWGEN_TOP/easysteps (really?)
 epath = os.environ.get('EASYSTEPS_TOP')
+assert epath != '', '''
+  Must set env EASYSTEPS_TOP to easysteps install site
+  E.g. 'export EASYSTEPS_TOP=/foo/bar/mflowgen/easysteps
+'''
 sys.path.append(epath + '/easysteps')
-
-
 
 from easysteps import extend_steps
 from easysteps import add_custom_steps

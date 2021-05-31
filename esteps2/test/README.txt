@@ -1,6 +1,15 @@
 ESTEPS2 TEST
 
-Build the same design construct.py files both with and without using esteps2 enhancements, verify that the results in both cases are identical.
+------------------------------------------------------------------------
+HOW TO RUN THE TEST
+TEST=$PWD/test.sh
+(cd /tmp; $TEST)
+
+
+------------------------------------------------------------------------
+WHAT THE TEST DOES
+
+Builds the same design construct.py files both with and without using esteps2 enhancements, verify that the results in both cases are identical.
 
 To contrast the two styles (basic vs. easystesp), you can compare the design without easystep enhancements vs. the design rewritten with enhancements
 
@@ -8,76 +17,19 @@ To contrast the two styles (basic vs. easystesp), you can compare the design wit
 
 The idea is that the enhancements make the construct file more intuitive and easier to write.
 
-To test and make sure everything is working, we build a complex design both ways and compare the result, which should be the same in both cases.
+To test and make sure everything is working, test.sh builds a complex design both ways and compare the result, which should be the same in both cases.
+
+# # Compare before and after: construction scripts
+# wc -l $testdir/design_{before,after}/Tile_PE/construct.py
+# sdiff $testdir/design_{before,after}/Tile_PE/construct.py | less
+
+
+
 
 NOTES/TODO
 - make a test rig and/or pytest that does this automatically, for CI you know.
-
-------------------------------------------------------------------------
-HOW TO TEST:
-
-# Build a clean test rig
-erig=~/tmpdir/easysteps_test
-
-ls -ld ${erig}*
-mv ${erig} ${erig}.deleteme4
-
-
-mkdir -p $erig; cd $erig
-
-# Set up a virtual environment I guess
-cd $erig
-python -m venv venv
-source ./venv/bin/activate
-
-# Clone mflowgen
-cd $erig
-git clone https://github.com/mflowgen/mflowgen.git
-
-# Install mflowgen
-cd $erig/mflowgen
-# TOP=$PWD; export MFLOWGEN_TOP=$PWD; # let's tryit w/o this shall we
-which mflowgen  # should give error
-pip install -e .
-which mflowgen
-pip list --format=columns | grep mflowgen
-
-# Install easysteps
-cd $erig/mflowgen
-git clone https://github.com/steveri/easysteps.git
-export EASYSTEPS_TOP=$erig/mflowgen/easysteps
-
-
-########################################################################
-# Build before-and-after test designs: BEFORE
-
-testdir=$erig/mflowgen/easysteps/esteps2/test
-which mflowgen
-cd $testdir; mkdir build_before
-cd $testdir/build_before
-mflowgen run --design $testdir/design_before/Tile_PE
-
-
-########################################################################
-# Build before-and-after test designs: AFTER
-
-testdir=$erig/mflowgen/easysteps/esteps2/test
-which mflowgen
-cd $testdir; mkdir build_after; cd build_after
-mflowgen run --design $testdir/design_after/Tile_PE
-
-########################################################################
-# COMPARE before & after
-
-# Compare before and after: construction scripts
-wc -l $testdir/design_{before,after}/Tile_PE/construct.py
-sdiff $testdir/design_{before,after}/Tile_PE/construct.py | less
-
-# Compare before and after: final designs (result should be NULL (identical))
-diff -r $testdir/design_{before,after} --exclude='construct*' && echo SUCCESS || echo FAIL
-
-
-
+- should be a pytest I suppose
+- set it up for travis CI
 
 
 
