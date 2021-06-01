@@ -1,6 +1,10 @@
-# EASYSTEPS - Simpler step  creation
+# EASYSTEPS - Simpler mflowgen step creation
 
-This easysteps package is designed to simplify the way we build `construct.py` scripts for new flows...it aims to reduce duplicated/unnecessary extra effort involved for various simple tasks.
+## What It Is
+
+This easysteps package is designed to simplify `construct.py` scripts for new mflowgen flows...it aims to reduce duplicated/unnecessary extra effort involved for various simple tasks.
+
+See https://github.com/mflowgen/mflowgen for a description of what mflowgen is and how to use it.
 
 Without easysteps, adding a node/step involves modifying your `construct.py` script in three separate places, once to define the node, once to add the node to the graph, and once to connect it to the other nodes in the graph. For example, adding a couple of default nodes `iflow` and `init` currently looks like the code below (all "before" examples are taken from [Tile_PE/construct.py](https://github.com/StanfordAHA/garnet/blob/69c3971586defcc41b71d29ec9f09eea41e2c270/mflowgen/Tile_PE/construct.py) in StanfordAHA's `garnet` repo).
 
@@ -62,4 +66,29 @@ After all `easysteps` have been added, there *must* be at least one final connec
 ```
   # Complete all easysteps connections
   connect_outstanding_nodes(g, DBG=1)
+```
+
+## How To Use It: Example
+
+1. Download mflowgen and install mflowgen
+```
+    % git clone https://github.com/mflowgen/mflowgen.git
+    % cd mflowgen; pip install -e .
+```
+
+2. Download easysteps and set env var EASYSTEPS_TOP
+```
+    % cd mflowgen
+    % git clone https://github.com/steveri/easysteps.git
+    % export EASYSTEPS_TOP=$PWD/easysteps
+```
+3. In each construct.py script, import easysteps packages
+```
+from mflowgen.components import Graph, Step
+sys.path.append(os.environ.get('EASYSTEPS_TOP') + '/easysteps')
+
+from easysteps import extend_steps
+from easysteps import add_custom_steps
+from easysteps import add_default_steps
+from easysteps import connect_outstanding_nodes
 ```

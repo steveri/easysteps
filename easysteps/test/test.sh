@@ -8,9 +8,9 @@
 ERIG=`pwd`/erig
 TESTDIR=$ERIG/mflowgen/easysteps/easysteps/test
 
-REUSE=
-# REUSE=1 ; # Can unset REBUILD if want to reuse test rig setup
-if ! [ "$REUSE" ]; then
+# EASYSTEPS_TEST_REUSE=  ; # Unset for clean install from zero
+# EASYSTEPS_TEST_REUSE=1 ; # Set to reuse existing test rig setup
+if ! [ "$EASYSTEPS_TEST_REUSE" ]; then
     echo "+++ Building test rig '$ERIG'"; echo ""
     mkdir $ERIG
 

@@ -12,7 +12,7 @@ from shutil import which
 
 from mflowgen.components import Graph, Step
 
-# Find and import easysteps; should be in $MFLOWGEN_TOP/easysteps (really?)
+# Find and import easysteps; should be in $MFLOWGEN_TOP/easysteps
 epath = os.environ.get('EASYSTEPS_TOP')
 assert epath != '', '''
   Must set env EASYSTEPS_TOP to easysteps install site
