@@ -1,12 +1,12 @@
-# EASYSTEPS - Simpler mflowgen step creation (alternative version)
+# EASYSTEPS-ALT - Simpler mflowgen step creation (alternative version)
 
 ## What It Is
 
-The main, more pythonic easysteps package is one levelup from here. This alternative package uses an even simpler syntax, but it requires a parser to decode the new syntax.
+The main, more pythonic easysteps package is one level up from here. This alternative package uses an even simpler syntax, but it requires a parser to decode the new syntax.
 
 This easysteps package is designed to simplify `construct.py` scripts for new mflowgen flows...it aims to reduce duplicated/unnecessary extra effort involved for various simple tasks. See https://github.com/mflowgen/mflowgen for a description of what mflowgen is and how to use it.
 
-Without easysteps, adding a node/step involves modifying your `construct.py` script in three separate places, once to define the node, once to add the node to the graph, and once to connect it to the other nodes in the graph. For example, adding a couple of default nodes `iflow` and `init` currently looks like the code below (all "before" examples are taken from [Tile_PE/construct.py](https://github.com/StanfordAHA/garnet/blob/69c3971586defcc41b71d29ec9f09eea41e2c270/mflowgen/Tile_PE/construct.py) in StanfordAHA's `garnet` repo).
+Without easysteps, adding a node/step involves modifying your `construct.py` script in three separate places, once to define the node, once to add the node to the graph, and once to connect it to the other nodes in the graph. For example, adding a couple of default nodes `iflow` and `init` currently looks like the code below (all "before" examples are taken from [Tile_PE/construct.py](https://github.com/steveri/easysteps/blob/master/test/design_before/Tile_PE/construct.py), (copied from Stanford's `garnet` project https://github.com/StanfordAHA/garnet).
 
 ```
     # Adding default nodes BEFORE:
@@ -32,7 +32,7 @@ Without easysteps, adding a node/step involves modifying your `construct.py` scr
     ...
 ```
 
-Easysteps combines all these steps in a single place in the script, e.g.
+Easysteps-alt combines all these steps in a single place in the script, e.g.
 ```
     # Adding default nodes AFTER:
  
@@ -85,15 +85,19 @@ For a more complete comparison see
 ```
     % cd mflowgen
     % git clone https://github.com/steveri/easysteps.git
-    % export EASYSTEPS_TOP=$PWD/easysteps
+    % export EASYSTEPS_TOP=$PWD/easysteps/easysteps-alt
 ```
 3. In each construct.py script, import easysteps packages
 ```
+# mflowgen packages
 from mflowgen.components import Graph, Step
-sys.path.append(os.environ.get('EASYSTEPS_TOP') + '/easysteps')
 
+# easysteps-alt packages
+sys.path.append(os.environ.get('EASYSTEPS_TOP')
 from easysteps import extend_steps
 from easysteps import add_custom_steps
 from easysteps import add_default_steps
 from easysteps import connect_outstanding_nodes
 ```
+
+For complete working example see `test/test.sh`

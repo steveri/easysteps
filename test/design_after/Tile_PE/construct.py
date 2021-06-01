@@ -18,7 +18,7 @@ assert epath != '', '''
   Must set env EASYSTEPS_TOP to easysteps install site
   E.g. 'export EASYSTEPS_TOP=/foo/bar/mflowgen/easysteps
 '''
-sys.path.append(epath + '/esteps2')
+sys.path.append(epath)
 
 from esteps2 import CStep
 from esteps2 import DStep
