@@ -7,6 +7,7 @@
 
 
 erig=`pwd`/erig
+testdir=$erig/mflowgen/easysteps/test
 
 REUSE=
 # REUSE=1 ; # Can unset REBUILD if want to reuse test rig setup
@@ -39,7 +40,7 @@ if ! [ "$REUSE" ]; then
     echo "+++ Install easysteps"
     cd $erig/mflowgen
     git clone https://github.com/steveri/easysteps.git
-    export EASYSTEPS_TOP=$erig/mflowgen/easysteps
+    export EASYSTEPS_TOP=$PWD/easysteps
     echo ""
 fi
 
@@ -49,14 +50,12 @@ fi
 
 echo "+++ Build before-and-after test designs: BEFORE"
 export EASYSTEPS_TOP=$erig/mflowgen/easysteps
-testdir=$erig/mflowgen/easysteps/esteps2/test
 mkdir $erig/build_before && cd $erig/build_before
 mflowgen run --design $testdir/design_before/Tile_PE
 echo ""
 
 echo "+++ Build before-and-after test designs: AFTER"
 export EASYSTEPS_TOP=$erig/mflowgen/easysteps
-testdir=$erig/mflowgen/easysteps/esteps2/test
 mkdir $erig/build_after && cd $erig/build_after
 mflowgen run --design $testdir/design_after/Tile_PE
 echo ""
@@ -98,8 +97,8 @@ echo '# Compare remaining files straight across...'
       [ $DBG ] && echo NOPE try adj1
 
       # Files differ; make sure it's not just before/after confusion e.g.
-      # < source: /esteps2/test/design_before/common/custom-genlibdb-constraints
-      # > source: /esteps2/test/design_after /common/custom-genlibdb-constraints
+      # < source: test/design_before/common
+      # > source: test/design_after/common
 
       fix_f1="sed s/design_before/design_after/g $f1"
       if ! diff <($fix_f1) $f2 > /dev/null; then
