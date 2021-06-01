@@ -1,6 +1,14 @@
 dist: trusty
-language: c
-sudo: false
+
+language: python
+
+python: 3.6
+
+
+# language: c
+# sudo: false
+
+
 
 notifications:
   email:
@@ -8,6 +16,9 @@ notifications:
       - steveri@stanford.edu
     # on_success: never # default: change
     on_failure: always # default: always
+
+install:
+    - pip install virtualenv
 
 script:
   # Current working directory: /home/travis/build/steveri/easysteps
