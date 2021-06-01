@@ -1,5 +1,6 @@
 #!/bin/bash
-
+set -e ; # Exit on *any* error within the script
+exit 13
 # This script builds a test rig directory "./erig" and then does the following:
 # - installs mflowgen in dir ./erig/mflowgen
 # - installs easysteps in dir ./erig/mflowgen/easysteps
@@ -9,9 +10,9 @@
 erig=`pwd`/erig
 testdir=$erig/mflowgen/easysteps/test
 
-REUSE=
-# REUSE=1 ; # Can unset REBUILD if want to reuse test rig setup
-if ! [ "$REUSE" ]; then
+# EASYSTEPS_TEST_REUSE=  ; # Unset for clean install from zero
+# EASYSTEPS_TEST_REUSE=1 ; # Set to reuse existing test rig setup
+if ! [ "$EASYSTEPS_TEST_REUSE" ]; then
     echo "+++ Building test rig '$erig'"; echo ""
     mkdir $erig
 

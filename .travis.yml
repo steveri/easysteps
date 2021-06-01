@@ -22,6 +22,7 @@ install:
 
 script:
   # Current working directory: /home/travis/build/steveri/easysteps
+  - set -e ; # Die at first error
   - test/test.sh
   - easysteps-alt/test/test.sh
 

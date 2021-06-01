@@ -1,35 +1,36 @@
 #!/bin/bash
+set -e ; # Exit on *any* error within the script
 
 # This script builds a test rig directory "./erig" and then does the following:
 # - installs mflowgen in dir ./erig/mflowgen
 # - installs easysteps in dir ./erig/mflowgen/easysteps
 # 
 
-ERIG=`pwd`/erig
-TESTDIR=$ERIG/mflowgen/easysteps/easysteps/test
+erig=`pwd`/erig
+testdir=$erig/mflowgen/easysteps/easysteps/test
 
 # EASYSTEPS_TEST_REUSE=  ; # Unset for clean install from zero
 # EASYSTEPS_TEST_REUSE=1 ; # Set to reuse existing test rig setup
 if ! [ "$EASYSTEPS_TEST_REUSE" ]; then
-    echo "+++ Building test rig '$ERIG'"; echo ""
-    mkdir $ERIG
+    echo "+++ Building test rig '$erig'"; echo ""
+    mkdir $erig
 
     ########################################################################
     # INSTALL mflowgen and easysteps
 
     echo "+++ Clone mflowgen"
-    cd $ERIG
+    cd $erig
     git clone https://github.com/mflowgen/mflowgen.git
     echo ""
 
     echo "+++ Prepare a virtual environment"
-    cd $ERIG
+    cd $erig
     python -m venv venv
     source ./venv/bin/activate
     echo ""
 
     echo "+++ Install mflowgen"
-    cd $ERIG/mflowgen
+    cd $erig/mflowgen
     which mflowgen  # should give error
     pip install -e .
     which mflowgen
@@ -37,9 +38,9 @@ if ! [ "$EASYSTEPS_TEST_REUSE" ]; then
     echo ""
 
     echo "+++ Install easysteps"
-    cd $ERIG/mflowgen
+    cd $erig/mflowgen
     git clone https://github.com/steveri/easysteps.git
-    export EASYSTEPS_TOP=$ERIG/mflowgen/easysteps
+    export EASYSTEPS_TOP=$erig/mflowgen/easysteps
     echo ""
 fi
 
@@ -48,15 +49,15 @@ fi
 # BUILD before & after designs
 
 echo "+++ Build before-and-after test designs: BEFORE"
-export EASYSTEPS_TOP=$ERIG/mflowgen/easysteps
-mkdir $ERIG/build_before && cd $ERIG/build_before
-mflowgen run --design $TESTDIR/design_before/Tile_PE
+export EASYSTEPS_TOP=$erig/mflowgen/easysteps
+mkdir $erig/build_before && cd $erig/build_before
+mflowgen run --design $testdir/design_before/Tile_PE
 echo ""
 
 echo "+++ Build before-and-after test designs: AFTER"
-export EASYSTEPS_TOP=$ERIG/mflowgen/easysteps
-mkdir $ERIG/build_after && cd $ERIG/build_after
-mflowgen run --design $TESTDIR/design_after/Tile_PE
+export EASYSTEPS_TOP=$erig/mflowgen/easysteps
+mkdir $erig/build_after && cd $erig/build_after
+mflowgen run --design $testdir/design_after/Tile_PE
 echo ""
 
 
@@ -66,11 +67,11 @@ echo ""
 echo "+++ Compare before and after designs (result should be NULL (identical))"
 
 DBG=
-log=$ERIG/results.log
+log=$erig/results.log
 test -e $log && mv $log $log.$$
 
 echo '# Look for "only in build_before" files...'
-(cd $ERIG; for f1 in `find build_before -type f`; do
+(cd $erig; for f1 in `find build_before -type f`; do
   f=`echo $f1 | sed "s|build_before/||"`
   f2=build_after/$f
   test -f "$f2" || echo Only in build_before: $f
@@ -78,7 +79,7 @@ done) |& tee -a $log
 echo ''
 
 echo '# Look for "only in build_after" files...'
-(cd $ERIG; for f1 in `find build_after -type f`; do
+(cd $erig; for f1 in `find build_after -type f`; do
   f=`echo $f1 | sed "s|build_after/||"`
   f2=build_before/$f
   test -f "$f2" || echo Only in build_after: $f
@@ -86,7 +87,7 @@ done) |& tee -a $log
 echo ''
 
 echo '# Compare remaining files straight across...'
-(cd $ERIG; for f1 in `find build_before -type f`; do
+(cd $erig; for f1 in `find build_before -type f`; do
   f=`echo $f1 | sed "s|build_before/||"`
   f2=build_after/$f
   test -f "$f2" || continue
