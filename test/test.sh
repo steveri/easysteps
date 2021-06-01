@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e ; # Exit on *any* error within the script
-exit 13
+
 # This script builds a test rig directory "./erig" and then does the following:
 # - installs mflowgen in dir ./erig/mflowgen
 # - installs easysteps in dir ./erig/mflowgen/easysteps
