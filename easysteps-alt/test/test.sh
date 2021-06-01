@@ -40,7 +40,7 @@ if ! [ "$EASYSTEPS_TEST_REUSE" ]; then
     echo "+++ Install easysteps"
     cd $erig/mflowgen
     git clone https://github.com/steveri/easysteps.git
-    export EASYSTEPS_TOP=$erig/mflowgen/easysteps
+    export EASYSTEPS_TOP=$PWD/easysteps/easysteps-alt
     echo ""
 fi
 
@@ -49,13 +49,11 @@ fi
 # BUILD before & after designs
 
 echo "+++ Build before-and-after test designs: BEFORE"
-export EASYSTEPS_TOP=$erig/mflowgen/easysteps
 mkdir $erig/build_before && cd $erig/build_before
 mflowgen run --design $testdir/design_before/Tile_PE
 echo ""
 
 echo "+++ Build before-and-after test designs: AFTER"
-export EASYSTEPS_TOP=$erig/mflowgen/easysteps
 mkdir $erig/build_after && cd $erig/build_after
 mflowgen run --design $testdir/design_after/Tile_PE
 echo ""
