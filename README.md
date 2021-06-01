@@ -10,7 +10,7 @@
 
 ## What It Is
 
-This `easysteps` package is designed to simplify `construct.py` scripts for new [mflowgen](https://github.com/mflowgen/mflowgen) flows...it aims to reduce duplicated/unnecessary extra effort involved for various simple tasks. See https://github.com/mflowgen/mflowgen for a description of what `mflowgen` is and how to use it.
+This `easysteps` package is designed to simplify `construct.py` scripts for new [mflowgen](https://github.com/mflowgen/mflowgen) flows; it aims to reduce duplicated/unnecessary extra effort involved for various simple tasks. See https://github.com/mflowgen/mflowgen for a description of what `mflowgen` is and how to use it.
 
 Without easysteps, adding a node/step involves modifying your `construct.py` script in three separate places, once to define the node, once to add the node to the graph, and once to connect it to the other nodes in the graph, as in the "original syntax" examples below. (Note all "original syntax" examples are taken from [design_beforeTile_PE/construct.py](https://github.com/steveri/easysteps/blob/master/test/design_before/Tile_PE/construct.py), (copied from Stanford's `garnet` project https://github.com/StanfordAHA/garnet).
 
