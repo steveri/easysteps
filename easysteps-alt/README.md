@@ -1,10 +1,10 @@
-# EASYSTEPS - Simpler mflowgen step creation
+# EASYSTEPS - Simpler mflowgen step creation (alternative version)
 
 ## What It Is
 
-This easysteps package is designed to simplify `construct.py` scripts for new mflowgen flows...it aims to reduce duplicated/unnecessary extra effort involved for various simple tasks.
+The main, more pythonic easysteps package is one levelup from here. This alternative package uses an even simpler syntax, but it requires a parser to decode the new syntax.
 
-See https://github.com/mflowgen/mflowgen for a description of what mflowgen is and how to use it.
+This easysteps package is designed to simplify `construct.py` scripts for new mflowgen flows...it aims to reduce duplicated/unnecessary extra effort involved for various simple tasks. See https://github.com/mflowgen/mflowgen for a description of what mflowgen is and how to use it.
 
 Without easysteps, adding a node/step involves modifying your `construct.py` script in three separate places, once to define the node, once to add the node to the graph, and once to connect it to the other nodes in the graph. For example, adding a couple of default nodes `iflow` and `init` currently looks like the code below (all "before" examples are taken from [Tile_PE/construct.py](https://github.com/StanfordAHA/garnet/blob/69c3971586defcc41b71d29ec9f09eea41e2c270/mflowgen/Tile_PE/construct.py) in StanfordAHA's `garnet` repo).
 
@@ -67,6 +67,11 @@ After all `easysteps` have been added, there *must* be at least one final connec
   # Complete all easysteps connections
   connect_outstanding_nodes(g, DBG=1)
 ```
+
+For a more complete comparison see
+* original syntax example `easysteps-alt/test/design_before/Tile_PE/construct.py`
+* vs. easysteps version `easysteps-alt/test/design_after/Tile_PE/construct.py``
+
 
 ## How To Use It: Example
 
