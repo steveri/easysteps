@@ -32,7 +32,7 @@ if ! [ "$EASYSTEPS_TEST_REUSE" ]; then
 
     echo "+++ Install mflowgen"
     cd $erig/mflowgen
-    which mflowgen  # should give error
+    which mflowgen || echo should give error
     pip install -e .
     which mflowgen
     pip list --format=columns | grep mflowgen
