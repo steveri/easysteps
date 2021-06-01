@@ -23,7 +23,10 @@ install:
 script:
   # Current working directory: /home/travis/build/steveri/easysteps
   - set -e ; # Die at first error
+  - echo "--- TEST EASYSTEPS"
   - test/test.sh
+  - /bin/rm -rf erig ; # Clean up from test
+  - echo "--- TEST EASYSTEPS-ALT"
   - easysteps-alt/test/test.sh
 
 

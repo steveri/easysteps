@@ -28,6 +28,7 @@ from esteps2 import reorder
 from esteps2 import econnect
 from esteps2 import connect_outstanding_nodes
 
+print("construct.py: Building Tile_PE using easysteps")
 def construct():
 
   g = Graph()
@@ -232,7 +233,7 @@ def construct():
   # Dynamically add edges
 
   # Complete all easysteps connections
-  connect_outstanding_nodes(g, DBG=1)
+  connect_outstanding_nodes(g, DBG=0)
 
   # Connect by name
 
