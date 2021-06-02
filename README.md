@@ -14,10 +14,13 @@ This `easysteps` package is designed to simplify `construct.py` scripts for new 
 
 Without easysteps, adding a node/step involves modifying your `construct.py` script in three separate places, once to define the node, once to add the node to the graph, and once to connect it to the other nodes in the graph, as in the "original syntax" examples below. (Note all "original syntax" examples are taken from [test/design_before/Tile_PE/construct.py](https://github.com/steveri/easysteps/blob/master/test/design_before/Tile_PE/construct.py), (copied from Stanford's `garnet` project https://github.com/StanfordAHA/garnet).
 
-The main benefit of easysteps is the ability to define, add, and connect a new custom or default step all in the same place within the construct.py script, as in the "new syntax" examples below. (Also see [design_after/Tile_PE/construct.py](https://github.com/steveri/easysteps/blob/master/test/design_after/Tile_PE/construct.py)
+The main benefit of easysteps is the ability to define, add, and connect a new custom or default step all in the same place within the construct.py script, as in the "new syntax" examples below. (Also see [test/design_after/Tile_PE/construct.py](https://github.com/steveri/easysteps/blob/master/test/design_after/Tile_PE/construct.py)
+
 
 ```
-ORIGINAL SYNTAX:
+ORIGINAL SYNTAX for building custom "extended" step "custom-genus-scripts"
+and default step "cadence-genus-synthesis": Twelve lines of code
+scattered throughout construct.py script.
 
   custom_genus_scripts = Step( this_dir + '/custom-genus-scripts' )
   synth = Step( 'cadence-genus-synthesis', default=True )
@@ -38,7 +41,7 @@ ORIGINAL SYNTAX:
   g.connect_by_name( synth,       cts                  )
   g.connect_by_name( synth,       custom_flowgen_setup )
 
-NEW SYNTAX:
+NEW SYNTAX: Two lines of code, one for each step.
   custom_genus_scripts = EStep( g, 'custom-genus-scripts', 'synth' )
   synth = DStep( g, 'cadence-genus-synthesis', 'iflow, init, power, place, cts, custom_flowgen_setup')
 
@@ -48,7 +51,7 @@ NEW SYNTAX:
 This new version also introduces a convenience method `reorder()` for adding/removing tcl scripts sourced by an existing step:
 
 ```
-ORIGINAL SYNTAX:
+ORIGINAL SYNTAX for tcl script reorder: Six separate python ops
       order = place.get_param('order')
       read_idx = order.index( 'main.tcl' ) # find main.tcl
       order.insert(read_idx + 1, 'add-aon-tie-cells.tcl')
@@ -56,7 +59,7 @@ ORIGINAL SYNTAX:
       order.append('check-clamp-logic-structure.tcl')
       place.update_params( { 'order': order } ) 
 
-NEW SYNTAX:
+NEW SYNTAX: One new reorder() op
       reorder(place,
               'after  main.tcl: add-aon-tie-cells.tcl',
               'before main.tcl: place-dont-use-constraints.tcl',
