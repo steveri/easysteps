@@ -80,7 +80,6 @@ See complete working example `test/test.sh` for how to use easysteps. Briefly, i
 
 2. Download easysteps and set env var EASYSTEPS_TOP
 ```
-    % cd mflowgen
     % git clone https://github.com/steveri/easysteps.git
     % export EASYSTEPS_TOP=$PWD/easysteps
 
@@ -89,21 +88,16 @@ See complete working example `test/test.sh` for how to use easysteps. Briefly, i
 ```
 from mflowgen.components import Graph, Step
 
-# easysteps-alt packages
+# easysteps packages
 sys.path.append(os.environ.get('EASYSTEPS_TOP')
-from easysteps import extend_steps
-from easysteps import add_custom_steps
-from easysteps import add_default_steps
+
+from easysteps import CStep
+from easysteps import DStep
+from easysteps import EStep
+
+from easysteps import reorder
+from easysteps import econnect
 from easysteps import connect_outstanding_nodes
 ```
-
-For complete working example see 
-
-
-------------------------------------------------------------------------------
-OLD/DELETE
-
-Alternate, more pythonic, version of easysteps. See before-and-after file compare of 
-`construct.py` for changes vs. original syntax. 
 
 
