@@ -86,18 +86,18 @@ See complete working example `test/test.sh` for how to use easysteps. Briefly, i
 ```
 3. In each construct.py script, import easysteps packages
 ```
-from mflowgen.components import Graph, Step
+    from mflowgen.components import Graph, Step
 
-# easysteps packages
-sys.path.append(os.environ.get('EASYSTEPS_TOP')
+    # easysteps packages
+    sys.path.append(os.environ.get('EASYSTEPS_TOP')
 
-from easysteps import CStep
-from easysteps import DStep
-from easysteps import EStep
+    from easysteps import CStep
+    from easysteps import DStep
+    from easysteps import EStep
 
-from easysteps import reorder
-from easysteps import econnect
-from easysteps import connect_outstanding_nodes
+    from easysteps import reorder
+    from easysteps import econnect
+    from easysteps import connect_outstanding_nodes
 ```
 
 

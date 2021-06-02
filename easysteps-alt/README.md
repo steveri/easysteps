@@ -75,6 +75,8 @@ For a more complete comparison see
 
 ## How To Use It: Example
 
+See complete working example `test/test.sh` for how to use easysteps. Briefly, it's something like this:
+
 1. Download mflowgen and install mflowgen
 ```
     % git clone https://github.com/mflowgen/mflowgen.git
@@ -88,15 +90,13 @@ For a more complete comparison see
 ```
 3. In each construct.py script, import easysteps packages
 ```
-# mflowgen packages
-from mflowgen.components import Graph, Step
+    # mflowgen packages
+    from mflowgen.components import Graph, Step
 
-# easysteps-alt packages
-sys.path.append(os.environ.get('EASYSTEPS_TOP')
-from easysteps import extend_steps
-from easysteps import add_custom_steps
-from easysteps import add_default_steps
-from easysteps import connect_outstanding_nodes
+    # easysteps-alt packages
+    sys.path.append(os.environ.get('EASYSTEPS_TOP')
+    from easysteps import extend_steps
+    from easysteps import add_custom_steps
+    from easysteps import add_default_steps
+    from easysteps import connect_outstanding_nodes
 ```
-
-For complete working example see `test/test.sh`
