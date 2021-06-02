@@ -14,8 +14,7 @@ set -e ; # Exit on *any* error within the script
 if [ "$1" == "install" ]; then
 
     echo "+++ Prepare a virtual environment"
-#     pip list | grep virtualenv || pip install virtualenv
-    python -m venv venv
+    python -m venv venv ; # venv is built-in if python version >= 3.3 ish
     source ./venv/bin/activate
     echo ""
 
