@@ -14,7 +14,7 @@ set -e ; # Exit on *any* error within the script
 if [ "$1" == "install" ]; then
 
     echo "+++ Prepare a virtual environment"
-    pip list | grep virtualenv || pip install virtualenv
+#     pip list | grep virtualenv || pip install virtualenv
     python -m venv venv
     source ./venv/bin/activate
     echo ""
@@ -32,7 +32,7 @@ fi
 
 if [ "$1" == "build" ]; then
 
-  EASYSTEPS_TOP=(cd $EASYSTEPS_TOP; pwd) ; # Eliminate relativity
+  EASYSTEPS_TOP=$(cd $EASYSTEPS_TOP; pwd) ; # Eliminate relativity
   echo "+++ Using EASYSTEPS_TOP=$EASYSTEPS_TOP"
   echo ""
   if ! [ "$EASYSTEPS_TOP" ]; then cat << "    EOF"
