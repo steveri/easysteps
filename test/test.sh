@@ -12,6 +12,7 @@ set -e ; # Exit on *any* error within the script
 #    test.sh install build compare ; # do all three
 
 echo "+++ Using EASYSTEPS_TOP=$EASYSTEPS_TOP"
+echo ""
 if ! [ "$EASYSTEPS_TOP" ]; then cat <<EOF
     ERROR did not find env var EASYSTEPS_TOP
 

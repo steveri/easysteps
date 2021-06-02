@@ -1,49 +1,25 @@
-dist: trusty
-
+dist:     trusty
 language: python
-
-python: 3.6
-
-
-# language: c
-# sudo: false
-
-
+python:   3.6
 
 notifications:
   email:
     recipients:
       - steveri@stanford.edu
-    # on_success: never # default: change
-    on_failure: always # default: always
+    # on_success: never # default is "change"
+    # on_failure: always  # default is "always"
 
 install:
-    - pip install virtualenv
+  - test/test.sh install
 
 script:
   # Current working directory: /home/travis/build/steveri/easysteps
   - set -e ; # Die at first error
+
   - echo "--- TEST EASYSTEPS"
-  - test/test.sh
-  - /bin/rm -rf erig ; # Clean up from test
+  - EASYSTEPS_TOP=. test/test.sh build compare
+  - /bin/rm -rf build_{before,after}
+
   - echo "--- TEST EASYSTEPS-ALT"
-  - easysteps-alt/test/test.sh
-
-
-
-#   # set -e => exit on failure "you can sandwich stuff in script w/ set -e and set +e."
-#   - set -e
-# 
-#   ### FFT REGRESSIONS
-#   - cd ${TRAVIS_BUILD_DIR}
-#   - mkdir regression; cd regression
-#   # - ls -l ../bin
-#   - ../bin/golden_test.csh -sim verilator |& tee test_results.log | egrep 'PASS|FAIL|ERR'
-#   #
-#   # Here's a tricky thing...it passes when it fails and it fails when it passes :(
-#   # Also---FIXME---above command should be responsible for PASS/FAIL exit codes
-#   - egrep 'FAIL|ERR' test_results.log && exit 13 || echo okay
-# 
-#   ### SIMV ANALYZER
-#   # I have this test for the analyzer, why not use it.
-#   - cd ${TRAVIS_BUILD_DIR}/bin/simv_analysis; make test
+  - EASYSTEPS_TOP=easysteps-alt test/test.sh build compare
+  - /bin/rm -rf build_{before,after}
