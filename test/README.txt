@@ -1,8 +1,19 @@
-ESTEPS2 TEST
+EASYSTEPS TEST
 
 ------------------------------------------------------------------------
 HOW TO RUN THE TEST
-TEST=$PWD/test.sh
+
+1. Install easysteps and set EASYSTEPS_TOP = install location
+
+    % git clone https://github.com/steveri/easysteps.git
+    % export EASYSTEPS_TOP=$PWD/easysteps
+
+2. Install mflowgen if you don't already have it
+
+    % git clone https://github.com/mflowgen/mflowgen.git
+    % cd mflowgen; pip install -e .
+
+
 (cd /tmp; $TEST)
 
 

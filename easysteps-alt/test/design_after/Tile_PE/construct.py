@@ -15,16 +15,17 @@ from mflowgen.components import Graph, Step
 # Find and import easysteps; should be in $MFLOWGEN_TOP/easysteps
 epath = os.environ.get('EASYSTEPS_TOP')
 assert epath != '', '''
-  Must set env EASYSTEPS_TOP to easysteps install site
-  E.g. 'export EASYSTEPS_TOP=/foo/bar/mflowgen/easysteps
+  Must set env EASYSTEPS_TOP to easysteps-alt install site
+  E.g. 'export EASYSTEPS_TOP=/foo/bar/mflowgen/easysteps/easysteps-alt
 '''
-sys.path.append(epath + '/easysteps')
+sys.path.append(epath)
 
 from easysteps import extend_steps
 from easysteps import add_custom_steps
 from easysteps import add_default_steps
 from easysteps import connect_outstanding_nodes
 
+print("construct.py: Building Tile_PE using easysteps-alt")
 def construct():
 
   g = Graph()
@@ -106,7 +107,7 @@ def construct():
         application        - ../common/application          -> post_pnr_power testbench
         post_pnr_power     - ../common/tile-post-pnr-power
 
-  """, DBG=1)
+  """, DBG=0)
 
   if synth_power:
     add_custom_steps(g, "post_synth_power ../common/tile-post-synth-power")
@@ -129,7 +130,7 @@ def construct():
     # Add custom timing scripts
     custom_timing_assert - ../common/custom-timing-assert -> synth postcts_hold signoff
 
-  """, DBG=1)
+  """, DBG=0)
 
   # Power aware setup
   power_domains = None
@@ -151,7 +152,7 @@ def construct():
     postroute    - cadence-innovus-postroute     -> signoff
     pt_signoff   - synopsys-pt-timing-signoff    -> post_pnr_power
     genlibdb     - cadence-genus-genlib
-  """, DBG=1)
+  """, DBG=0)
 
   add_default_steps(g, """
     synth   - cadence-genus-synthesis       
@@ -223,7 +224,7 @@ def construct():
   # Dynamically add edges
 
   # Complete all easysteps connections
-  connect_outstanding_nodes(g, DBG=1)
+  connect_outstanding_nodes(g, DBG=0)
 
   # Connect by name
 

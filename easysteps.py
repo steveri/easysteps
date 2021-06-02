@@ -70,7 +70,7 @@ def _add_step(graph, stepdir, successors, which, DBG=0):
     return step_obj
 
 
-def econnect(from_step, to_steps, DBG=1):
+def econnect(from_step, to_steps, DBG=0):
 
     # Ensure that todo list exists
     try: _todo[from_step]
@@ -92,7 +92,6 @@ def connect_outstanding_nodes(graph, DBG=0):
     # construct.py should call this method after all steps have been built,
     # to clear out the todo list.
     '''
-    DBG=1
     if DBG: print("PROCESSING CONNECTIONS IN TODO LIST")
 
     # Quick shortcut to avoid further problems

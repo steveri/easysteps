@@ -109,7 +109,7 @@ class ParseNodes:
 
             if re.search(r'\S', nodelist):
                 # Not done yet. Look for successor nodes
-                nodelist = self._build_successor_list(node, nodelist, DBG=4)
+                nodelist = self._build_successor_list(node, nodelist, DBG=0)
 
         if DBG:
             print("RESULT")

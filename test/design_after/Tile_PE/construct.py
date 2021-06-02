@@ -20,13 +20,13 @@ assert epath != '', '''
 '''
 sys.path.append(epath)
 
-from esteps2 import CStep
-from esteps2 import DStep
-from esteps2 import EStep
+from easysteps import CStep
+from easysteps import DStep
+from easysteps import EStep
 
-from esteps2 import reorder
-from esteps2 import econnect
-from esteps2 import connect_outstanding_nodes
+from easysteps import reorder
+from easysteps import econnect
+from easysteps import connect_outstanding_nodes
 
 print("construct.py: Building Tile_PE using easysteps")
 def construct():
