@@ -70,7 +70,7 @@ After all `easysteps` have been added, there *must* be at least one final connec
 
 For a more complete comparison see
 * original syntax example `easysteps-alt/test/design_before/Tile_PE/construct.py`
-* vs. easysteps version `easysteps-alt/test/design_after/Tile_PE/construct.py``
+* vs. easysteps version `easysteps-alt/test/design_after/Tile_PE/construct.py`
 
 
 ## How To Use It: Example
