@@ -1,83 +1,49 @@
-EASYSTEPS TEST
-
-Build the same design construct.py files both with and without using easysteps enhancements, verify that the results in both cases are identical.
-
-To contrast the two styles (basic vs. easystesp), you can compare the design without easystep enhancements vs. the design rewritten with enhancements
-
-   diff design_before/Tile_PE/construct.py design_after/Tile_PE/construct.py
-
-The idea is that the enhancements make the construct file more intuitive and easier to write.
-
-To test and make sure everything is working, we build a complex design both ways and compare the result, which should be the same in both cases.
-
-NOTES/TODO
-- make a test rig and/or pytest that does this automatically, for CI you know.
+EASYSTEPS-ALT TEST
 
 ------------------------------------------------------------------------
-HOW TO TEST:
+HOW TO RUN THE TEST
 
-# Build a clean test rig
-erig=~/tmpdir/easysteps_test
+1. Install easysteps and point EASYSTEPS_TOP at easysteps packages
 
-ls -ld ${erig}*
-mv ${erig} ${erig}.deleteme3
+    % git clone https://github.com/steveri/easysteps.git
+    % TEST=$PWD/easysteps/test/test.sh
+    % export EASYSTEPS_TOP=$PWD/easysteps/easysteps-alt
 
+2. Install mflowgen if you don't already have it
 
-mkdir -p $erig; cd $erig
+    % git clone https://github.com/mflowgen/mflowgen.git
+    % pip install -e mflowgen
 
-# Set up a virtual environment I guess
-cd $erig
-python -m venv venv
-source ./venv/bin/activate
+3. Build and compare before-and-after versions of Tile_PE;
+   resulting designs should be identical.
 
-# Clone mflowgen
-cd $erig
-git clone https://github.com/mflowgen/mflowgen.git
+    % $TEST build
+    % $TEST compare
 
-# Install mflowgen
-cd $erig/mflowgen
-# TOP=$PWD; export MFLOWGEN_TOP=$PWD; # let's tryit w/o this shall we
-which mflowgen  # should give error
-pip install -e .
-which mflowgen
-pip list --format=columns | grep mflowgen
-
-# Install easysteps
-cd $erig/mflowgen
-git clone https://github.com/steveri/easysteps.git
-export EASYSTEPS_TOP=$erig/mflowgen/easysteps
+Also see $EASYSTEPS_TOP/.travis.yml
 
 
-########################################################################
-# Build before-and-after test designs: BEFORE
+------------------------------------------------------------------------
+WHAT THE TEST DOES
 
-testdir=$erig/mflowgen/easysteps/easysteps/test
-which mflowgen
-cd $testdir; mkdir build_before
-cd $testdir/build_before
-mflowgen run --design $testdir/design_before/Tile_PE
+Builds the same design construct.py files both with and without
+easysteps, checks that results in both cases are identical.
 
+To contrast the two styles (basic vs. easysteps), you can compare the
+two design styles like this:
 
-########################################################################
-# Build before-and-after test designs: AFTER
+  % cd $EASYSTEPS_TOP/test
+  % diff design_before/Tile_PE/construct.py design_after/Tile_PE/construct.py
 
-testdir=$erig/mflowgen/easysteps/easysteps/test
-which mflowgen
-cd $testdir; mkdir build_after; cd build_after
-mflowgen run --design $testdir/design_after/Tile_PE
+The idea is that the enhancements make the construct file more
+intuitive and easier to write.
 
-########################################################################
-# COMPARE before & after
-
-# Compare before and after: construction scripts
-wc -l $testdir/design_{before,after}/Tile_PE/construct.py
-sdiff $testdir/design_{before,after}/Tile_PE/construct.py | less
-
-# Compare before and after: final designs (result should be NULL (identical))
-diff -r $testdir/design_{before,after} --exclude='construct*' && echo SUCCESS || echo FAIL
+To test and make sure everything is working, test.sh builds a complex
+design both ways and compare the result, which should be the same in
+both cases.
 
 
+------------------------------------------------------------------------
+NOTES/TODO
 
-
-
-
+* Test should be set up as a pytest, I suppose.
