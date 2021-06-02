@@ -32,6 +32,7 @@ fi
 
 if [ "$1" == "build" ]; then
 
+  EASYSTEPS_TOP=(cd $EASYSTEPS_TOP; pwd) ; # Eliminate relativity
   echo "+++ Using EASYSTEPS_TOP=$EASYSTEPS_TOP"
   echo ""
   if ! [ "$EASYSTEPS_TOP" ]; then cat << "    EOF"
@@ -48,6 +49,7 @@ if [ "$1" == "build" ]; then
     ########################################################################
     # BUILD before & after designs
 
+    pwd
     echo "+++ Build before-and-after test designs: BEFORE"
     mkdir build_before; cd build_before
     mflowgen run --design $EASYSTEPS_TOP/test/design_before/Tile_PE
