@@ -19,8 +19,7 @@ The main benefit of easysteps is the ability to define, add, and connect a new c
 
 ```
 ORIGINAL SYNTAX for building custom "extended" step "custom-genus-scripts"
-and default step "cadence-genus-synthesis": Twelve lines of code
-scattered throughout construct.py script.
+and default step "synth": Twelve lines of code scattered throughout "construct.py".
 
   custom_genus_scripts = Step( this_dir + '/custom-genus-scripts' )
   synth = Step( 'cadence-genus-synthesis', default=True )
@@ -45,10 +44,9 @@ NEW SYNTAX: Two lines of code, one for each step.
   custom_genus_scripts = EStep( g, 'custom-genus-scripts', 'synth' )
   synth = DStep( g, 'cadence-genus-synthesis', 'iflow, init, power, place, cts, custom_flowgen_setup')
 
-
 ```
 
-This new version also introduces a convenience method `reorder()` for adding/removing tcl scripts sourced by an existing step:
+We also introduces a convenience method `reorder()` for adding/removing tcl scripts sourced by an existing step:
 
 ```
 ORIGINAL SYNTAX for tcl script reorder: Six separate python ops
@@ -68,7 +66,7 @@ NEW SYNTAX: One new reorder() op
 
 For a more complete comparison see
 * original syntax example `easysteps/test/design_before/Tile_PE/construct.py`
-* vs. easysteps version `easysteps/test/design_after/Tile_PE/construct.py``
+* vs. easysteps version `easysteps/test/design_after/Tile_PE/construct.py`
 
 ## How To Use It: Example
 
