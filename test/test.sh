@@ -11,19 +11,6 @@ set -e ; # Exit on *any* error within the script
 # 
 #    test.sh install build compare ; # do all three
 
-echo "+++ Using EASYSTEPS_TOP=$EASYSTEPS_TOP"
-echo ""
-if ! [ "$EASYSTEPS_TOP" ]; then cat <<EOF
-    ERROR did not find env var EASYSTEPS_TOP
-
-    It should point to easysteps packages e.g.
-      export EASYSTEPS_TOP=/installdir/easysteps
-    or
-      export EASYSTEPS_TOP=/installdir/easysteps/easysteps-alt
-EOF
-    exit 13
-fi
-
 if [ "$1" == "install" ]; then
 
     echo "+++ Prepare a virtual environment"
@@ -44,6 +31,19 @@ if [ "$1" == "install" ]; then
 fi
 
 if [ "$1" == "build" ]; then
+
+  echo "+++ Using EASYSTEPS_TOP=$EASYSTEPS_TOP"
+  echo ""
+  if ! [ "$EASYSTEPS_TOP" ]; then cat << "    EOF"
+    ERROR did not find env var EASYSTEPS_TOP
+
+    It should point to easysteps packages e.g.
+      export EASYSTEPS_TOP=/installdir/easysteps
+    or
+      export EASYSTEPS_TOP=/installdir/easysteps/easysteps-alt
+    EOF
+    exit 13
+  fi
 
     ########################################################################
     # BUILD before & after designs
