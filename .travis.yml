@@ -1,5 +1,5 @@
 dist:     trusty
-language: python
+language: bash
 python:   3.6
 
 notifications:
