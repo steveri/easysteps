@@ -14,7 +14,7 @@ set -e ; # Exit on *any* error within the script
 if [ "$1" == "install" ]; then
 
     echo "+++ Prepare a virtual environment"
-    which virtualenv || pip install virtualenv
+    pip list | grep virtualenv || pip install virtualenv
     python -m venv venv
     source ./venv/bin/activate
     echo ""
